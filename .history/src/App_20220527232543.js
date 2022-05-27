@@ -134,23 +134,19 @@ function Search() {
 
   return (
     <div className="search">
-      <Combobox
-        onSelect={(adress) => {
-          console.log(adress);
-        }}
+
+    <Combobox
+      onSelect={(adress) => {
+        console.log(adress);
+      }}
       >
-        <ComboboxInput
-          value={value}
-          onChange={(event) => {
-            setValue(event.target.value);
-          }}
-          disabled={!ready}
-          placeholder={"Enter an Adress"}
-        />
-        <ComboboxPopover>
-          {status === "ok" && data.map((id, description) => <ComboboxOption key={id} value={description}/>)}
-        </ComboboxPopover>
-      </Combobox>
-    </div>
+      <ComboboxInput value={value} onChange={(event) => {
+        setValue(event.target.value);
+      }}
+      disabled={!ready}
+      placeholder ={"Enter an Adress"}
+      />
+    </Combobox>
+      </div>
   );
 }

@@ -147,9 +147,6 @@ function Search() {
           disabled={!ready}
           placeholder={"Enter an Adress"}
         />
-        <ComboboxPopover>
-          {status === "ok" && data.map((id, description) => <ComboboxOption key={id} value={description}/>)}
-        </ComboboxPopover>
       </Combobox>
     </div>
   );

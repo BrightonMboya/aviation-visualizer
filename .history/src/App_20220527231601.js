@@ -69,8 +69,6 @@ export default function App() {
   return (
     <div>
       <h1>Aviation Visualizer</h1>
-
-      <Search />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
@@ -114,43 +112,6 @@ export default function App() {
           </InfoWindow>
         ) : null}
       </GoogleMap>
-    </div>
-  );
-}
-
-function Search() {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      location: { lat: () => -1.948272, lng: () => 30.13224 },
-      radius: 200 * 10000,
-    },
-  });
-
-  return (
-    <div className="search">
-      <Combobox
-        onSelect={(adress) => {
-          console.log(adress);
-        }}
-      >
-        <ComboboxInput
-          value={value}
-          onChange={(event) => {
-            setValue(event.target.value);
-          }}
-          disabled={!ready}
-          placeholder={"Enter an Adress"}
-        />
-        <ComboboxPopover>
-          {status === "ok" && data.map((id, description) => <ComboboxOption key={id} value={description}/>)}
-        </ComboboxPopover>
-      </Combobox>
     </div>
   );
 }
