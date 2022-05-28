@@ -4,24 +4,11 @@ import {
   Marker,
   InfoWindow,
   useLoadScript,
+  Circle,
 } from "@react-google-maps/api";
 import mapStyles from "./mapStyles";
 import signal from "./assets/signal.png";
 import { format, formatRelative } from "date-fns";
-import usePlacesAutocomplete, {
-  getGeoCode,
-  getLatLng,
-} from "use-places-autocomplete";
-
-import {
-  Combobox,
-  ComboboxInput,
-  ComboboxPopover,
-  ComboboxList,
-  ComboboxOption,
-  ComboboxOptionText,
-} from "@reach/combobox";
-import "@reach/combobox/styles.css";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -70,7 +57,7 @@ export default function App() {
     <div>
       <h1>Aviation Visualizer</h1>
 
-      <Search />
+      {/* <Search /> */}
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={8}
@@ -98,6 +85,30 @@ export default function App() {
           />
         ))}
 
+        {markers.map((marker) => (
+          <Circle
+            key={marker.time.toISOString()}
+            defaultCenter={{
+              lat: marker.lat,
+              lng: marker.lng,
+            }}
+            options={{
+              strokeColor: "#FF0000",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: "#FF0000",
+              fillOpacity: 0.35,
+              clickable: false,
+              draggable: false,
+              editable: false,
+              visible: true,
+              radius: 30000,
+              zIndex: 1,
+            }}
+            // radius={40000}
+          />
+        ))}
+
         {selected ? (
           <InfoWindow
             position={{ lat: selected.lat, lng: selected.lng }}
@@ -114,43 +125,6 @@ export default function App() {
           </InfoWindow>
         ) : null}
       </GoogleMap>
-    </div>
-  );
-}
-
-function Search() {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      location: { lat: () => -1.948272, lng: () => 30.13224 },
-      radius: 200 * 10000,
-    },
-  });
-
-  return (
-    <div className="search">
-      <Combobox
-        onSelect={(adress) => {
-          console.log(adress);
-        }}
-      >
-        <ComboboxInput
-          value={value}
-          onChange={(event) => {
-            setValue(event.target.value);
-          }}
-          disabled={!ready}
-          placeholder={"Enter an Adress"}
-        />
-        <ComboboxPopover>
-          {status === "ok" && data.map((id, description) => <ComboboxOption key={id} value={description}/>)}
-        </ComboboxPopover>
-      </Combobox>
     </div>
   );
 }
