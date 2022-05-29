@@ -1,6 +1,6 @@
 import React from "react";
 import {render} from 'react-dom'
-import Map from './DataFetching'
+import Map from './Map'
 import './index.css'
 
 
