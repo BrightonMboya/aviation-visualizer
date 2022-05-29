@@ -1,14 +1,11 @@
 var express = require("express");
-const cors = require("cors")
-const path = require("path")
 var app = express();
 const PORT = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const url =
   "mongodb+srv://tony:tonybm321@todo.f7ruh.mongodb.net/?retryWrites=true&w=majority";
-app.use(cors())
+
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "dist")))
 
 mongoose
   .connect(url)
@@ -35,9 +32,11 @@ const sensorSchema = mongoose.Schema({
 
 const Sensor = mongoose.model("sensor", sensorSchema);
 
+app.get("/", (req, res) => {
+  res.send("This is my demo project");
+});
 
-
-app.get("/api/sensors", async (req, res) => {
+app.get("/sensors", async (req, res) => {
   try {
     const sensors = await Sensor.find();
     res.status(200).json({
@@ -53,7 +52,7 @@ app.get("/api/sensors", async (req, res) => {
   }
 });
 
-app.post("/api/sensors", async (req, res) => {
+app.post("/sensors", async (req, res) => {
   try {
     console.log(req.body);
     const sensor = new Sensor(req.body);
@@ -71,7 +70,7 @@ app.post("/api/sensors", async (req, res) => {
   }
 });
 
-app.delete("/api/sensors/:id", async (req, res) => {
+app.post("/sensors/:id", async (req, res) => {
   try {
     await Sensor.findByIdAndDelete(req.params.id);
     res.status(201).json({
@@ -87,7 +86,7 @@ app.delete("/api/sensors/:id", async (req, res) => {
   }
 });
 
-app.get("/api/sensors/:id", async (req, res) => {
+app.get("/sensors/:id", async (req, res) => {
   try {
     const sensor = await Sensor.findById(req.params.id);
     res.status(201).json({
@@ -102,10 +101,6 @@ app.get("/api/sensors/:id", async (req, res) => {
     });
   }
 });
-
-app.all("*", (req, res)=>{
-  return res.sendFile(path.join(__dirname, "dist/index.html"))
-})
 
 app.listen(PORT, function () {
   console.log(`Demo project at: ${PORT}!`);

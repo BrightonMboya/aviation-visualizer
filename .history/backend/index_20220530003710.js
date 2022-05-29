@@ -71,7 +71,7 @@ app.post("/api/sensors", async (req, res) => {
   }
 });
 
-app.delete("/api/sensors/:id", async (req, res) => {
+app.post("/api/sensors/:id", async (req, res) => {
   try {
     await Sensor.findByIdAndDelete(req.params.id);
     res.status(201).json({
