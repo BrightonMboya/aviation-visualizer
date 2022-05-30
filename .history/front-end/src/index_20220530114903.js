@@ -4,7 +4,6 @@ import Map from './Map'
 import './index.css'
 import App from "./App";
 import AddSensors from "./AddSensors";
-import "bootstrap/dist/css/bootstrap.css"
 
 
 const data = [

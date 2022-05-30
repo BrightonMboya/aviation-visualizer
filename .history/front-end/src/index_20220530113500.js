@@ -2,9 +2,7 @@ import React from "react";
 import {render} from 'react-dom'
 import Map from './Map'
 import './index.css'
-import App from "./App";
 import AddSensors from "./AddSensors";
-import "bootstrap/dist/css/bootstrap.css"
 
 
 const data = [
@@ -33,8 +31,6 @@ const data = [
 
 render(
   <React.Fragment>
-    {/* <AddSensors/> */}
-    <App/>
 
     <Map
      center={{ lat:  -1.948272, lng: 30.13224}}
